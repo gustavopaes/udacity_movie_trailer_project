@@ -19,6 +19,17 @@ a new Movie or TvShow providing a IMDB Id and Youtube Trailer URL.
 
 ## What's included
 
+```
+udacity_movie_trailer_project/
+    ├──entertainment_center.py
+    ├──fresh_tomatoes.py
+    ├──LICENSE
+    ├──media.py
+    ├──README.md
+```
+
+## third part
+
 * bootstrap framework
 * jquery javascript lib
 * `fresh_tomatores.py` lib
