@@ -6,10 +6,8 @@ class Video():
     """This class provides a way to store video related information
 
     Attributes:
-        title (str): video title
-        storyline (str): short text about the movie
-        poster (str): url to movie poster
-        trailer_url (str): youtube url to movie trailer
+        omdbid (str): movie id on omdb site
+        triler_url (str): youtube url to movie trailer
 
     Methods:
         get_youtube_id: return youtube id from trailer_url attribute
@@ -18,11 +16,20 @@ class Video():
     def __init__(self, omdbid, trailer_url):
         self.omdbid = omdbid
         self.trailer_youtube_url = trailer_url
+
+        # set blank informations to prevent some
+        # future error
+        self.title = "N/A"
+        self.storyline = "N/A"
+        self.poster_image_url = "N/A"
+        self.year = "N/A"
+        self.director = "N/A"
+
         self.get_video_data()
 
     def get_youtube_id(self):
         # Extract the youtube ID from the url
-        # Source: original fresh_tomatoes.py (udacity)
+        # original source: fresh_tomatoes.py (udacity)
         youtube_id_match = re.search(
             r'(?<=v=)[^&#]+', self.trailer_youtube_url)
         youtube_id_match = youtube_id_match or re.search(
@@ -37,18 +44,19 @@ class Video():
         connection = urllib.urlopen("http://www.omdbapi.com/?i="+self.omdbid)
         content = connection.read()
         connection.close()
+
+        # transform (parse) text in json object
         jsoncontent = json.loads(content)
 
+        # update video data using api data
         self.title = jsoncontent["Title"]
         self.storyline = jsoncontent["Plot"]
         self.poster_image_url = jsoncontent["Poster"]
+        self.year = jsoncontent["Year"].encode('utf-8')
 
         if(self.content_type == "movie"):
+            # just movies have a director
             self.director = jsoncontent["Director"].encode('utf-8')
-        else:
-            self.director = "N/A"
-
-        self.year = jsoncontent["Year"].encode('utf-8')
         
 class Movie(Video):
     """This class provides a way to store movie related information
