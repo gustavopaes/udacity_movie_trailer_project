@@ -3,7 +3,7 @@
 Project that creates a movie trailer website. To run it:
 
 1. install python 2.7
-2. git clone
+2. git clone https://github.com/gustavopaes/udacity_movie_trailer_project.git
 3. run `python entertainment_center.py`
 
 ### How it works
